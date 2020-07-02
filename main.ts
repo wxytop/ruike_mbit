@@ -8,7 +8,7 @@ load dependency
 
 
 //% color="#C814B8" weight=25 icon="\uf1d4"
-namespace 显示 {
+namespace 显示1 {
     
     export enum enColor {
 
