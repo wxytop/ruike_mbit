@@ -5,8 +5,9 @@
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "neopixel": "github:wxytop/pxt-neopixel",
-        "Mbit_IR":  "github:wxytop/ruike_mbit_IR"
+        "Mbit_IR":  "github:wxytop/ruike_mbit_IR",
+        "neopixel": "github:wxytop/pxt-neopixel"
+        
 	
 
     },
