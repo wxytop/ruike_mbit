@@ -408,6 +408,12 @@ namespace 音乐 {
 
 //% color="#0000CD" weight=21 icon="\uf185"
 namespace 电机 {
+    export enum MotorIndex {
+        //% blockId="Left_Motor" block="左电机"
+        Left_Motor = 1,
+        //% blockId="Right_Motor" block="右电机"
+        Right_Motor = 2,
+    }
 
     //% blockId=mbit_Fan block="Fan|pin %pin|speed %value"
     //% weight=100
@@ -433,7 +439,76 @@ namespace 电机 {
 
     }
 
+   //% blockId=mbit_Motor block="Motor|%index|speed %speed"
+    //% weight=100
+    //% blockGap=10
+    //% speed.min=-255 speed.max=255
+    //% color="#0000CD"
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=9
+    export function Motor(index: MotorIndex, speed: number): void {
+        switch (index) {
+            case MotorIndex.Left_Motor: LeftMotor_run(speed); break;
+            case MotorIndex.Right_Motor: RightMotor_run(speed); break;
+        }
+    }
+    function LeftMotor_run(speed1: number) {
+
+        speed1 = speed1 * 16; // map 350 to 4096
+       
+        if (speed1 >= 4096) {
+            speed1 = 4095
+        }
+        if (speed1 <= -4096) {
+            speed1 = -4095
+        }
+        if(speed1==0)
+        {
+            setPwm(15, 0, 0);
+            setPwm(14, 0, 0);
+        }
+        if(speed1>0)
+        {
+            setPwm(15, 0, speed1);
+            setPwm(14, 0, 0);
+        }
+        if(speed1<0)
+        {
+            speed1=Math.abs(speed1);
+            setPwm(15, 0, 0);
+            setPwm(14, 0, speed1);
+        }
+        
+    }
+    function RightMotor_run(speed2: number) {
+
+        speed2 = speed2 * 16;
+        if (speed2 >= 4096) {
+            speed2 = 4095
+        }
+        if (speed2 <= -4096) {
+            speed2 = -4095
+        }
+        if(speed2==0)
+        {
+            setPwm(12, 0, 0);
+            setPwm(13, 0, 0);
+        }
+        if(speed2>0)
+        {
+            setPwm(12, 0, speed2);
+            setPwm(13, 0, 0);
+        }
+        if(speed2<0)
+        {
+            speed2=Math.abs(speed2);
+            setPwm(12, 0, 0);
+            setPwm(13, 0, speed2);
+        }
+
+      
+    }
 }
+
 
 //% color="#006400" weight=20 icon="\uf1b9"
 namespace 小车 {
